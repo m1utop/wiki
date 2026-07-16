@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>关于国家授时中心遭受美国国家安全局网络攻击事件的技术分析报告 | 迷雾档案室 - M.I.U</title>
+    
+    
+        <meta name="keywords" content="官方报告,NSA,黑客,网络攻击,授时中心" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="内容转载自：国家互联网应急中心 - 关于国家授时中心遭受美国国家安全局网络攻击事件的技术分析报告  10 月 19 日上午，国家安全机关披露了美国国家安全局（以下简称 NSA）对国家授时中心（以下简称“授时中心”）实施重大网络攻击活动。国家互联网应急中心（CNCERT）通过分析研判和追踪溯源得出此次攻击事件的整体情况，现将具体技术细节公布如下： 一、攻击事件概貌 2022 年 3 月起，NSA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于国家授时中心遭受美国国家安全局网络攻击事件的技术分析报告">
+<meta property="og:url" content="http://wiki.m1u.top/archives/e7be41dd3a8f.html">
+<meta property="og:site_name" content="迷雾档案室 - M.I.U">
+<meta property="og:description" content="内容转载自：国家互联网应急中心 - 关于国家授时中心遭受美国国家安全局网络攻击事件的技术分析报告  10 月 19 日上午，国家安全机关披露了美国国家安全局（以下简称 NSA）对国家授时中心（以下简称“授时中心”）实施重大网络攻击活动。国家互联网应急中心（CNCERT）通过分析研判和追踪溯源得出此次攻击事件的整体情况，现将具体技术细节公布如下： 一、攻击事件概貌 2022 年 3 月起，NSA">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/tab01.png">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/tab02.png">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img01.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img02.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img03.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img04.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img05.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/tab03.png">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/tab04.png">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img06.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img07.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img08.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img09.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/tab05.png">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/tab06.png">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img10.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img11.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img12.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img13.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img14.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img15.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/tab07.png">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img16.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img17.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img18.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img19.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img20.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img21.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img22.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img23.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img24.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img25.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img26.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img27.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img28.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img29.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img30.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img31.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img32.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img33.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img34.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img35.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img36.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img37.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img38.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img39.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img40.jpg">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/tab08.png">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/tab09.png">
+<meta property="article:published_time" content="2026-07-16T06:42:43.465Z">
+<meta property="article:modified_time" content="2026-07-16T09:09:53.863Z">
+<meta property="article:author" content="迷雾调查小组">
+<meta property="article:tag" content="官方报告">
+<meta property="article:tag" content="NSA">
+<meta property="article:tag" content="黑客">
+<meta property="article:tag" content="网络攻击">
+<meta property="article:tag" content="授时中心">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://wiki.m1u.top/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/tab01.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="迷雾档案室 - M.I.U" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">迷雾档案室 - M.I.U</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>分类</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            网络收集
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            黑客事件
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/archives/6e0e0b677043.html">西北工业大学遭美国NSA网络攻击事件调查报告（之一）</a></li>  <li class="file"><a href="/archives/944e6211eac0.html">西北工业大学遭美国NSA网络攻击事件调查报告（之二）</a></li>  <li class="file active"><a href="/archives/e7be41dd3a8f.html">关于国家授时中心遭受美国国家安全局网络攻击事件的技术分析报告</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>标签</span></h3>
+        <div class="widget">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/NSA/" rel="tag">NSA</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%AE%98%E6%96%B9%E6%8A%A5%E5%91%8A/" rel="tag">官方报告</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83/" rel="tag">授时中心</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB/" rel="tag">网络攻击</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A5%BF%E5%8C%97%E5%B7%A5%E4%B8%9A%E5%A4%A7%E5%AD%A6/" rel="tag">西北工业大学</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%BB%91%E5%AE%A2/" rel="tag">黑客</a><span class="tag-list-count">3</span></li></ul>
+        </div>
+    </div>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-2026/07/关于国家授时中心遭受美国国家安全局网络攻击事件的技术分析报告" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/%E7%BD%91%E7%BB%9C%E6%94%B6%E9%9B%86/">网络收集</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/%E7%BD%91%E7%BB%9C%E6%94%B6%E9%9B%86/%E9%BB%91%E5%AE%A2%E4%BA%8B%E4%BB%B6/">黑客事件</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/NSA/" rel="tag">NSA</a>, <a class="tag-link-link" href="/tags/%E5%AE%98%E6%96%B9%E6%8A%A5%E5%91%8A/" rel="tag">官方报告</a>, <a class="tag-link-link" href="/tags/%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83/" rel="tag">授时中心</a>, <a class="tag-link-link" href="/tags/%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB/" rel="tag">网络攻击</a>, <a class="tag-link-link" href="/tags/%E9%BB%91%E5%AE%A2/" rel="tag">黑客</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/archives/e7be41dd3a8f.html">
+            <time datetime="2026-07-16T06:42:43.465Z" itemprop="datePublished">2026-07-16</time>
+        </a>
+    </div>
+
+
+                        
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            关于国家授时中心遭受美国国家安全局网络攻击事件的技术分析报告
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <blockquote>
+<p>内容转载自：<a target="_blank" rel="noopener" href="https://www.cert.org.cn/publish/main/49/2025/20251019142622914870997/20251019142622914870997_.html">国家互联网应急中心 - 关于国家授时中心遭受美国国家安全局网络攻击事件的技术分析报告</a></p>
+</blockquote>
+<p>10 月 19 日上午，国家安全机关披露了美国国家安全局（以下简称 NSA）对国家授时中心（以下简称“授时中心”）实施重大网络攻击活动。国家互联网应急中心（CNCERT）通过分析研判和追踪溯源得出此次攻击事件的整体情况，现将具体技术细节公布如下：</p>
+<p><strong>一、攻击事件概貌</strong></p>
+<p>2022 年 3 月起，NSA 利用某国外品牌手机短信服务漏洞，秘密监控 10 余名国家授时中心工作人员，非法窃取手机通讯录、短信、相册、位置信息等数据。2023 年 4 月起，NSA 在“三角测量”行动曝光前，多次于北京时间凌晨，利用在某国外品牌手机中窃取的登录凭证入侵国家授时中心计算机，刺探内部网络建设情况。2023 年 8 月至 2024 年 6 月，NSA 针对性部署新型网络作战平台，对国家授时中心多个内部业务系统实施渗透活动，并企图向高精度地基授时导航系统等重大科技基础设施发动攻击。</p>
+<p>纵观此次事件，NSA 在战术理念、操作手法、加密通讯、免杀逃逸等方面依然表现出世界领先水准。<strong>隐匿实施攻击</strong>，NSA 通过使用正常业务数字证书、伪装 Windows 系统模块、代理网络通信等方式隐蔽其攻击窃密行为，同时对杀毒软件机制的深入研究，可使其有效避免检测；<strong>通讯多层加密</strong>，NSA 使用网攻武器构建回环嵌套加密模式，加密强度远超常规TLS 通讯，通信流量更加难以解密还原；<strong>活动耐心谨慎</strong>，在整个活动周期，NSA 会对受控主机进行全面监控，文件变动、关机重启都会导致其全面排查异常原因；<strong>功能动态扩展</strong>，NSA 会根据目标环境，动态组合不同网攻武器功能模块进行下发，表明其统一攻击平台具备灵活的可扩展性和目标适配能力。但其整体创新性缺失和部分环节乏力，显示出在被各类曝光事件围追堵截后，技术迭代升级面临瓶颈困境。</p>
+<p><strong>二、网络攻击过程</strong></p>
+<p>此次攻击事件中，NSA 利用“三角测量行动”获取授时中心计算机终端的登录凭证，进而获取控制权限，部署定制化特种网攻武器，并针对授时中心网络环境不断升级网攻武器，进一步扩大网攻窃密范围，以达到对该单位内部网络及关键信息系统长期渗透窃密的目的。梳理发现，NSA 使用的网攻武器共计 42 款，可分为三类：前哨控守（“eHome_0cx”）、隧道搭建（“Back_eleven”）和数据窃取（“New_Dsz_Implant”），以境外网络资产作为主控端控制服务器实施攻击活动共计千余次。具体分为以下四个阶段：</p>
+<p>（一）获取控制权限</p>
+<p>2022 年 3 月 24 日至 2023 年 4 月 11 日，NSA 通过“三角测量”行动对授时中心 10 余部设备进行攻击窃密。2022 年 9月，攻击者通过授时中心网络管理员某国外品牌手机，获取了办公计算机的登录凭证，并利用该凭证获得了办公计算机的远程控制权限。</p>
+<p>2023 年 4 月 11 日至 8 月 3 日，攻击者利用匿名通信网络节点远程登录办公计算机共 80 余次，并以该计算机为据点探测授时中心网络环境。</p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/tab01.png" alt="表 2023 年 8 月 3 日攻击过程"></p>
+<p>（二）植入特种网攻武器</p>
+<p>2023 年 8 月 3 日至 2024 年 3 月 24 日，攻击者向网管计算机植入了早期版本的“Back_eleven”，窃取网管计算机数据，并在每次攻击结束后清除网络攻击武器内存占用和操作痕迹。该阶段“Back_eleven”功能尚未成熟，攻击者每次启动前需远程控制关闭主机杀毒软件。</p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/tab02.png" alt="表 部分杀毒软件关闭记录"></p>
+<p>（三）升级特种网攻武器</p>
+<p>2024 年 3 月至 4 月，攻击者针对授时中心网络环境，定制化升级网络攻击武器，植入多款新型网络攻击武器，实现对计算机的长期驻留和隐蔽控制。攻击者加载“eHome_0cx” “Back_eleven”“New_Dsz_Implant”，配套使用的 20 余款功能模块，以及 10 余个网络攻击武器配置文件。</p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img01.jpg" alt="图 加载“eHome_0cx”数据包"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img02.jpg" alt="图 内存加载“Back_eleven”过程"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img03.jpg" alt="图 内存加载“New_Dsz_Implant”过程"></p>
+<p>攻击者利用多款网络攻击武器相互配合，搭建起 4 层加密隧道，形成隐蔽性极强且功能完善的网攻窃密平台。</p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img04.jpg" alt="图 网攻武器加密模式"></p>
+<p>（四）内网横向渗透过程</p>
+<p>2024 年 5 月至 6 月，攻击者利用“Back_eleven”以网管计算机为跳板，攻击上网认证服务器和防火墙。</p>
+<p>6月 13 日 9 时，攻击者激活网管计算机上的“eHome_0cx”，植入“Back_eleven”“New_Dsz_Implant”，并以此为跳板窃取认证服务器数据。</p>
+<p>7月 13 日 9 时，攻击者激活网管计算机上的“eHome_0cx”，下发“Back_eleven”和“New_Dsz_Implant”窃取数据。</p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img05.jpg" alt="图 2024 年 6 月 13 日网攻窃密数据包"></p>
+<p>三、网攻武器库分析</p>
+<p>攻击者在此次网络攻击事件中使用的网攻武器、功能模块、恶意文件等总计 42 个，主要网攻武器按照功能可分为前哨控守类武器、隧道搭建类武器、数据窃取类武器。</p>
+<p>（一）前哨控守类武器</p>
+<p>攻击者利用该类型网络攻击武器的隐蔽驻留和心跳回连功能，实现了长期控守目标计算机终端和加载后续网络攻击武器的目的。根据该类型主武器的资源加载路径，将其命名为“eHome_0cx”。</p>
+<p>“eHome_0cx”由 4 个网攻模块组成，通过 DLL 劫持系统正常服务（如资源管理器和事件日志服务）实现自启动，在启动后抹除内存中可执行文件头数据，以隐藏网攻武器运行痕迹。</p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/tab03.png" alt="表 “eHome_0cx”各网攻模块信息表"></p>
+<p>“eHome_0cx”以受控主机唯一标识guid 作为解密武器资源的密钥，各网攻模块之间利用 LPC 端口进行通信，并以指令号的方式调用该武器的各项功能。</p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/tab04.png" alt="表“eHome_0cx”功能"></p>
+<p>“eHome_0cx”使用 RSA 算法和TLS 协议完成通信加密。 “eHome_0cx”内置有与主控端通信使用的 RSA 公钥（见下图）。每次通信均随机产生一个会话密钥，使用 RSA 算法与主控端完成密钥交换过程，之后利用 TLS 协议传输使用会话密钥加密的数据。</p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img06.jpg" alt="图 RSA 公钥"></p>
+<p>（二）隧道搭建类武器</p>
+<p>攻击者利用该类型网络攻击武器搭建网络通信和数据传输隧道，实现了对其他类型网络攻击武器的远程控制和窃密数据的加密传输，同时还具备信息获取和命令执行功能，在初始连接阶段向主控端发送带有数字“11”标识，命名为“Back_Eleven”。</p>
+<p>“Back_Eleven”由“eHome_0cx”加载运行，具有严格运行环境检测机制，若发现运行环境系统版本异常、调试程序正在运行等情况，将启动自删除功能。并且该武器在设计时加入了反调试功能，以防止被逆向分析。</p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img07.jpg" alt="图 “Back_Eleven”检测运行环境"></p>
+<p>“Back_Eleven”具有主动回连和被动监听两种工作模式：在主动回连模式下，“Back_Eleven”解密内置的主控端控制服务器 IP 地址，并使用内置的 RSA 加密算法公钥完成密钥交换，然后使用 AES 算法将上线信息加密后，利用 TLS 协议加密传输到主控端；在被动监听模式下，“Back_Eleven”通过监听 Windows 系统网卡流量，筛选主控端发送的特定条件数据包，实现主控端命令执行。</p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img08.jpg" alt="图 “Back_Eleven”向主控端转发数据"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img09.jpg" alt="图 “Back_Eleven”接收主控端指令并解密"></p>
+<p>“Back_Eleven”以指令号的方式调用该武器的各项功能。</p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/tab05.png" alt="表 “Back_Eleven”指令功能"></p>
+<p>（三）数据窃取类武器</p>
+<p>攻击者利用此类网络攻击武器进行数据窃密。该武器运行时，通过启动模块化网攻武器框架，加载各种插件模块来实现具体的窃密功能。该武器与 NSA 网攻武器“DanderSpritz”（怒火喷射）具有高度同源性，将其命名为“New-Dsz-Implant”。</p>
+<p>“New-Dsz-Implant”由“eHome_0cx”加载运行，在攻击活动中配合“Back_Eleven”所搭建的数据传输链路使用。其自身无具体窃密功能，需通过接收主控端指令加载功能模块，实现各项窃密功能。本次网攻事件中，攻击者使用“New-Dsz-Implant”加载了 25 个功能模块，各模块功能情况如下表所示。</p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/tab06.png" alt="表 “New-Dsz-Implant”各模块功能"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img10.jpg" alt="图 “New-Dsz-Implant”加载module0 模块代码"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img11.jpg" alt="图 module0 加载其他模块代码"></p>
+<p>“New-Dsz-Implant”与主控端进行通信时，先使用 AES 和 TLS1.2 进行 2 层数据加密，再使用本地回环的方式利用“Back_Eleven”进行另外 2 层数据加密，最终实现 4 层嵌套加密。</p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img12.jpg" alt="图 嵌套加密模式"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img13.jpg" alt="图 创建本地回环通信"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img14.jpg" alt="图 本地回环通信数据包"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img15.jpg" alt="图 解密回环通信数据为进程信息"></p>
+<p>四、背景研判分析</p>
+<p>（一）技术功能细节</p>
+<p>“New-Dsz-Implant”是一个网攻武器框架，通过加载不同的模块实现具体功能，此种功能实现方式与NSA武器库中“DanderSpritz”网攻平台一致，且在代码细节上具有高度同源性，并进行了部分功能升级：一是加密了部分函数名称和字符串；二是使用系统的常规模块名称伪装功能模块；三是功能模块编译时间从 2012 至 2013 年更新至 2016 至 2018 年，各功能模块增加了模拟用户操作函数，伪装用户点击、登录等正常行为以迷惑杀毒软件的检测。</p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/tab07.png" alt="表 “New-Dsz-Implant”和“DanderSpritz”所加载功能模块对比"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img16.jpg" alt="图 module0（左）与Dsz_Implant_Pc.dll（右）代码同源性对比"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img17.jpg" alt="图 module1（左）与Cd_Target.dll（右）代码同源性对比"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img18.jpg" alt="图 module2（左）与Time_Target.dll（右）代码同源性对比"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img19.jpg" alt="图 module3（左）与NameServerLookup_Target.dll（右）代码同源性"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img20.jpg" alt="图 module4（左）与RunAsChild_Target.dll（右）代码同源性对比"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img21.jpg" alt="图 module5（左）与 Mcl_NtNativeApi_Win32.dll（右）代码同源性对"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img22.jpg" alt="图 module6（左）与RegistryQuery_Target.dll（右）代码同源性对比"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img23.jpg" alt="图 module7（左）与SidLookup_Target.dll（右）代码同源性对比"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img24.jpg" alt="图 module8（左）与Mcl_NtMemory_Std.dll（右）代码同源性对比"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img25.jpg" alt="图 module9（左）与Papercut_Target.dll（右）代码同源性对比"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img26.jpg" alt="图 module10（左）与UpTime_Target.dll（右）代码同源性对比"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img27.jpg" alt="图 module11（左）与Activity_Target.dll（右）代码同源性对比"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img28.jpg" alt="图 module12（左）与 SystemVersion_Target.dll（右）代码同源性对比"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img29.jpg" alt="图 module13（左）与Memory_Target.dll（右）代码同源性对比"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img30.jpg" alt="图 module14（左）与Drives_Target.dll（右）代码同源性对比"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img31.jpg" alt="图 module15（左）与DiskSpace_Target.dll（右）代码同源性对比"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img32.jpg" alt="图 module16（左）与Processes_Target.dll（右）代码同源性对比"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img33.jpg" alt="图 module17（左）与Services_Target.dll（右）代码同源性对比"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img34.jpg" alt="图 module18（左）与Audit_Target_Vista.dll（右）代码同源性对比"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img35.jpg" alt="图 module19（左）与EventLogQuery_Target.dll（右）代码同源性对比"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img36.jpg" alt="图 module20（左）与Route_Target.dll（右）代码同源性对比"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img37.jpg" alt="图 module21（左）与Drivers_Target.dll（右）代码同源性对比"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img38.jpg" alt="图 module22（左）与Environment_Target.dll（右）代码同源性对比"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img39.jpg" alt="图 module23（左）与Packages_Target.dll（右）代码同源性对比"></p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/img40.jpg" alt="图 module24（左）与Scheduler_Target.dll（右）代码同源性对比"></p>
+<p>（二）样本驻留方式</p>
+<p>“eHome_0cx”的部分驻留文件通过修改注册表 InprocServer32 键值的方式，劫持了系统正常服务，在系统正常程序启动前加载实现自启动。注册表修改位置与 NSA“方程式组织”所使用网攻武器相同，均位于 HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID 下随机 ID 项的 InProcServer32 子项。</p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/tab08.png"></p>
+<p>（三）数据加密模式</p>
+<p>攻击者使用的 3 款网攻武器均采用 2 层加密方式，外层使用 TLS 协议加密，内层使用 RSA+AES 方式进行密钥协商和加密，在窃密数据传输、功能模块下发等关键阶段，各武器的相互配合实现了 4 层嵌套加密。此种多层嵌套数据加密模式与相比于“NOPEN”使用的 RSA+RC6 加密模式有了明显升级。</p>
+<p>五、码址披露</p>
+<p>2023 年 8 月至 2024 年 5 月，美方用于命令控制的部分服务器 IP，如下表。</p>
+<p><img src="/image/2026/07/%E5%85%B3%E4%BA%8E%E5%9B%BD%E5%AE%B6%E6%8E%88%E6%97%B6%E4%B8%AD%E5%BF%83%E9%81%AD%E5%8F%97%E7%BE%8E%E5%9B%BD%E5%9B%BD%E5%AE%B6%E5%AE%89%E5%85%A8%E5%B1%80%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/tab09.png"></p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+    
+        <a href="/archives/944e6211eac0.html" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">西北工业大学遭美国NSA网络攻击事件调查报告（之二）</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            
+                迷雾调查小组 &copy; 2026
+            
+        </div>
+    </div>
+</footer>
+
+        
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>
