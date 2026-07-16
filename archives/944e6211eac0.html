@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>西北工业大学遭美国NSA网络攻击事件调查报告（之二） | 迷雾档案室 - M.I.U</title>
+    
+    
+        <meta name="keywords" content="NSA,黑客,网络攻击,西北工业大学" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="内容转载自：国家计算机病毒应急处理中心  2022年6月22日，西北工业大学发布《公开声明》称，该校遭受境外网络攻击。陕西省西安市公安局碑林分局随即发布《警情通报》，证实在西北工业大学的信息网络中发现了多款源于境外的木马和恶意程序样本，西安警方已对此正式立案调查。 中国国家计算机病毒应急处理中心和360公司全程参与了此案的技术分析工作。技术团队先后从西北工业大学的多个信息系统和上网终端中提取到了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="西北工业大学遭美国NSA网络攻击事件调查报告（之二）">
+<meta property="og:url" content="http://wiki.m1u.top/archives/944e6211eac0.html">
+<meta property="og:site_name" content="迷雾档案室 - M.I.U">
+<meta property="og:description" content="内容转载自：国家计算机病毒应急处理中心  2022年6月22日，西北工业大学发布《公开声明》称，该校遭受境外网络攻击。陕西省西安市公安局碑林分局随即发布《警情通报》，证实在西北工业大学的信息网络中发现了多款源于境外的木马和恶意程序样本，西安警方已对此正式立案调查。 中国国家计算机病毒应急处理中心和360公司全程参与了此案的技术分析工作。技术团队先后从西北工业大学的多个信息系统和上网终端中提取到了">
+<meta property="og:locale">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E8%A5%BF%E5%8C%97%E5%B7%A5%E4%B8%9A%E5%A4%A7%E5%AD%A6%E9%81%AD%E7%BE%8E%E5%9B%BDNSA%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E8%B0%83%E6%9F%A5%E6%8A%A5%E5%91%8A%EF%BC%88%E4%B9%8B%E4%BA%8C%EF%BC%89/biao1.webp">
+<meta property="og:image" content="http://wiki.m1u.top/image/2026/07/%E8%A5%BF%E5%8C%97%E5%B7%A5%E4%B8%9A%E5%A4%A7%E5%AD%A6%E9%81%AD%E7%BE%8E%E5%9B%BDNSA%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E8%B0%83%E6%9F%A5%E6%8A%A5%E5%91%8A%EF%BC%88%E4%B9%8B%E4%BA%8C%EF%BC%89/biao2.webp">
+<meta property="article:published_time" content="2026-07-16T06:16:42.948Z">
+<meta property="article:modified_time" content="2026-07-16T06:23:51.865Z">
+<meta property="article:author" content="迷雾调查小组">
+<meta property="article:tag" content="NSA">
+<meta property="article:tag" content="黑客">
+<meta property="article:tag" content="网络攻击">
+<meta property="article:tag" content="西北工业大学">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://wiki.m1u.top/image/2026/07/%E8%A5%BF%E5%8C%97%E5%B7%A5%E4%B8%9A%E5%A4%A7%E5%AD%A6%E9%81%AD%E7%BE%8E%E5%9B%BDNSA%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E8%B0%83%E6%9F%A5%E6%8A%A5%E5%91%8A%EF%BC%88%E4%B9%8B%E4%BA%8C%EF%BC%89/biao1.webp">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="迷雾档案室 - M.I.U" type="application/atom+xml" />
+    
+
+    
+        <link rel="icon" href="/favicon.ico" />
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">迷雾档案室 - M.I.U</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Buscar" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Entradas',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categorias',
+            TAGS: 'Etiquetas',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Buscar" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id='categories'>
+        <h3 class="widget-title">
+            <span>Categorias</span>
+            &nbsp;
+            <a id='allExpand' href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" > 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            网络收集
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            黑客事件
+                        </a>
+                         <ul class="unstyled" id="tree" > 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            西北工业大学遭美国NSA网络攻击事件调查报告
+                        </a>
+                         <ul class="unstyled" id="tree" >  <li class="file"><a href="/archives/6e0e0b677043.html">西北工业大学遭美国NSA网络攻击事件调查报告（之一）</a></li>  <li class="file active"><a href="/archives/944e6211eac0.html">西北工业大学遭美国NSA网络攻击事件调查报告（之二）</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>Etiquetas</span></h3>
+        <div class="widget">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/NSA/" rel="tag">NSA</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB/" rel="tag">网络攻击</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A5%BF%E5%8C%97%E5%B7%A5%E4%B8%9A%E5%A4%A7%E5%AD%A6/" rel="tag">西北工业大学</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%BB%91%E5%AE%A2/" rel="tag">黑客</a><span class="tag-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-2026/07/西北工业大学遭美国NSA网络攻击事件调查报告（之二）" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/%E7%BD%91%E7%BB%9C%E6%94%B6%E9%9B%86/">网络收集</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/%E7%BD%91%E7%BB%9C%E6%94%B6%E9%9B%86/%E9%BB%91%E5%AE%A2%E4%BA%8B%E4%BB%B6/">黑客事件</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/%E7%BD%91%E7%BB%9C%E6%94%B6%E9%9B%86/%E9%BB%91%E5%AE%A2%E4%BA%8B%E4%BB%B6/%E8%A5%BF%E5%8C%97%E5%B7%A5%E4%B8%9A%E5%A4%A7%E5%AD%A6%E9%81%AD%E7%BE%8E%E5%9B%BDNSA%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E8%B0%83%E6%9F%A5%E6%8A%A5%E5%91%8A/">西北工业大学遭美国NSA网络攻击事件调查报告</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/NSA/" rel="tag">NSA</a>, <a class="tag-link-link" href="/tags/%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB/" rel="tag">网络攻击</a>, <a class="tag-link-link" href="/tags/%E8%A5%BF%E5%8C%97%E5%B7%A5%E4%B8%9A%E5%A4%A7%E5%AD%A6/" rel="tag">西北工业大学</a>, <a class="tag-link-link" href="/tags/%E9%BB%91%E5%AE%A2/" rel="tag">黑客</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/archives/944e6211eac0.html">
+            <time datetime="2026-07-16T06:16:42.948Z" itemprop="datePublished">2026-07-16</time>
+        </a>
+    </div>
+
+
+                        
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            西北工业大学遭美国NSA网络攻击事件调查报告（之二）
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <blockquote>
+<p>内容转载自：<a target="_blank" rel="noopener" href="https://www.cverc.org.cn/head/zhaiyao/news20220927-NPU2.htm">国家计算机病毒应急处理中心</a></p>
+</blockquote>
+<p>2022年6月22日，西北工业大学发布《公开声明》称，该校遭受境外网络攻击。陕西省西安市公安局碑林分局随即发布《警情通报》，证实在西北工业大学的信息网络中发现了多款源于境外的木马和恶意程序样本，西安警方已对此正式立案调查。</p>
+<p>中国国家计算机病毒应急处理中心和360公司全程参与了此案的技术分析工作。技术团队先后从西北工业大学的多个信息系统和上网终端中提取到了木马程序样本，综合使用国内现有数据资源和分析手段，并得到欧洲、东南亚部分国家合作伙伴的通力支持，全面还原了相关攻击事件的总体概貌、技术特征、攻击武器、攻击路径和攻击源头，初步判明相关攻击活动源自于美国国家安全局（NSA）的“特定入侵行动办公室”（即：Office of Tailored Access Operation，后文简称“TAO”）。</p>
+<p>本系列研究报告将公布TAO对西北工业大学发起的上千次网络攻击活动中，某些特定攻击活动的重要细节，为全球各国有效发现和防范TAO的后续网络攻击行为提供可以借鉴的案例。</p>
+<p><strong>一、TAO攻击渗透西北工业大学的流程</strong></p>
+<p>TAO对他国发起的网络攻击技战术针对性强，采取半自动化攻击流程，单点突破、逐步渗透、长期窃密。</p>
+<p>（一）单点突破、级联渗透，控制西北工业大学网络</p>
+<p>经过长期的精心准备，TAO使用“酸狐狸”平台对西北工业大学内部主机和服务器实施中间人劫持攻击，部署“怒火喷射”远程控制武器，控制多台关键服务器。利用木马级联控制渗透的方式，向西北工业大学内部网络深度渗透，先后控制运维网、办公网的核心网络设备、服务器及终端，并获取了部分西北工业大学内部路由器、交换机等重要网络节点设备的控制权，窃取身份验证数据，并进一步实施渗透拓展，最终达成了对西北工业大学内部网络的隐蔽控制。</p>
+<p>（二）隐蔽驻留、“合法”监控，窃取核心运维数据</p>
+<p>TAO将作战行动掩护武器“精准外科医生”与远程控制木马NOPEN配合使用，实现进程、文件和操作行为的全面“隐身”，长期隐蔽控制西北工业大学的运维管理服务器，同时采取替换3个原系统文件和3类系统日志的方式，消痕隐身，规避溯源。TAO先后从该服务器中窃取了多份网络设备配置文件。利用窃取到的配置文件，TAO远程“合法”监控了一批网络设备和互联网用户，为后续对这些目标实施拓展渗透提供数据支持。</p>
+<p>（三）搜集身份验证数据、构建通道，渗透基础设施</p>
+<p>TAO通过窃取西北工业大学运维和技术人员远程业务管理的账号口令、操作记录以及系统日志等关键敏感数据，掌握了一批网络边界设备账号口令、业务设备访问权限、路由器等设备配置信息、FTP服务器文档资料信息。根据TAO攻击链路、渗透方式、木马样本等特征，关联发现TAO非法攻击渗透中国境内的基础设施运营商，构建了对基础设施运营商核心数据网络远程访问的“合法”通道，实现了对中国基础设施的渗透控制。</p>
+<p>（四）控制重要业务系统，实施用户数据窃取</p>
+<p>TAO通过掌握的中国基础设施运营商的思科PIX防火墙、天融信防火墙等设备的账号口令，以“合法”身份进入运营商网络，随后实施内网渗透拓展，分别控制相关运营商的服务质量监控系统和短信网关服务器，利用“魔法学校”等专门针对运营商设备的武器工具，查询了一批中国境内敏感身份人员，并将用户信息打包加密后经多级跳板回传至美国国家安全局总部。</p>
+<p><strong>二、窃取西北工业大学和中国运营商敏感信息</strong></p>
+<p>（一）窃取西北工业大学远程业务管理账号口令、操作记录等关键敏感数据</p>
+<p>TAO通过在西北工业大学运维管理服务器安装嗅探工具“饮茶”，长期隐蔽嗅探窃取西北工业大学运维管理人员远程维护管理信息，包含网络边界设备账号口令、业务设备访问权限、路由器等设备配置信息等。</p>
+<p>遭到嗅探的网络设备类型包括固定互联网的接入网设备（路由器、认证服务器等）、核心网设备（核心路由器、交换机、防火墙等），也包括通信基础设施运营企业的重要设备（数据服务平台等），内容包括账号、口令、设备配置、网络配置等信息。</p>
+<p>1、窃取西工大核心网络设备账号口令及配置信息</p>
+<p>北京时间20××年12月11日6时52分，TAO以位于日本京都大学的代理服务器（IP：130.54.××.××）为攻击跳板，非法入侵了西北工业大学运维网络的“telnet”管理服务器，上传并安装NOPEN木马，然后级联控制其内网监控管理服务器，上述2台服务器事先均已被安装“饮茶”嗅探工具。TAO远程操控木马检索并下载被压缩加密的监听记录文件，然后清痕退出。窃取数据包括路由器、核心网设备（核心路由器、交换机、防火墙）管理账号、口令、设备配置、网络配置等信息。</p>
+<p>2、多次窃取接入网认证设备账号口令及配置信息</p>
+<p>（1）北京时间20××年5月30日0时28分，TAO以位于日本的代理服务器（IP：210.135.××.××）为攻击跳板，非法入侵了西北工业大学运维网络“telnet”管理服务器，上传并安装NOPEN木马，然后级联控制其内网监控管理服务器，这2台服务器事先均已被安装“饮茶”嗅探工具，TAO远程操控木马检索并下载窃密记录文件后清痕退出。窃取数据包括接入网认证设备的账号、口令及配置信息。</p>
+<p>（2）北京时间20××年7月4日1时12分，TAO利用位于德国莱比锡技术经济和文化学院的代理服务器（IP：141.57.××.××）作为攻击跳板，非法入侵西北工业大学运维网络“telnet”管理服务器，上传并安装NOPEN木马工具，级联控制其内网监控管理服务器等其他3台服务器，这4台服务器事先均已被安装“饮茶”嗅探工具，TAO远程操控木马检索并下载窃密文件后清痕退出。</p>
+<p>（3）北京时间20××年10月11日10时35分，TAO利用位于韩国首尔国立江原大学的代理服务器（IP：210.115.××.××）作为攻击跳板，非法入侵西北工业大学运维网络监控管理服务器，上传并安装NOPEN木马工具，然后级联控制其内网备份服务器、认证服务器等其他4台服务器，这5台服务器事先均已被安装“饮茶”嗅探工具，TAO远程操控木马分别检索并下载窃取记录文件后清痕退出。</p>
+<p>（4）北京时间20××年10月19日2时46分，TAO以位于韩国大田的高等科学技术研究学院的代理服务器（IP：143.248.××.××）为攻击跳板，非法入侵西北工业大学运维网络“telnet”管理服务器，级联控制其内网监管服务器等其他2台服务器，这3台服务器事先均已被安装“饮茶”嗅探工具，TAO通过远程操控木马检索并下载窃密文件，然后清痕退出。</p>
+<p>（二）窃取西北工业大学网络设备运维配置文件和日志文件</p>
+<p>美国国家安全局“特定入侵行动办公室”（TAO）长期攻击入侵西北工业大学网络运维管理服务器，秘密窃取网络设备运维配置文件和日志文件。</p>
+<p>1、窃取西北工业大学网络运行日志文件</p>
+<p>北京时间20××年3月2日3时41分，TAO通过位于日本的代理服务器（IP：210.135.××.××）非法入侵控制西北工业大学1台网络运维管理服务器。3时49分，TAO从该运维管理服务器横向移动到另一台运维监控服务器，以特定字符串为关键词检索日志文件并进行窃取了一批系统运行日志文件和系统日常自检报告备份文件。</p>
+<p>2、窃取西北工业大学服务器定期任务配置脚本</p>
+<p>北京时间20××年10月11日10时41分，TAO通过位于韩国的代理服务器（IP：210.115.××.××）入侵控制了西北工业大学一台内网服务器。10时48分，TAO经过两次横向移动，入侵了另一台内网服务器，访问了特定目录下的定期任务配置脚本，共检索到14个用于定期执行任务的配置文件。随后，一次性窃取了这14个文件，这些文件可用于执行定期清理、备份、检查电源等操作。</p>
+<p>3、窃取西北工业大学公司服务器系统信息文件</p>
+<p>北京时间20××年6月6日1时27分，TAO通过位于韩国的代理服务器（IP：222.122.××.××）入侵控制了西北工业大学一台内网服务器。2时4分，TAO经过两次横向移动，入侵了另一台内网服务器，访问了目录&#x2F;var&#x2F;下的系统文件，窃取了60个常用的系统信息文件，被窃取的系统信息文件内容包含系统发行版本、用户密码哈希、用户权限、本地域名解析配置等。</p>
+<p>（三）渗透控制中国基础设施核心设备</p>
+<p>美国国家安全局“特定入侵行动办公室”（TAO）利用窃取到的网络设备账号口令，以“合法”身份进入中国某基础设施运营商服务网络，控制相关服务质量监控系统，窃取用户隐私数据。</p>
+<p>1、窃取中国用户隐私数据</p>
+<p>北京时间20××年3月7日22时53分，美国国家安全局“特定入侵行动办公室”（TAO）通过位于墨西哥的攻击代理148.208.××.××，攻击控制中国某基础设施运营商的业务服务器211.136.××.××，通过两次内网横向移动（10.223.140.××、10.223.14.××）后，攻击控制了用户数据库服务器，非法查询多名身份敏感人员的用户信息。</p>
+<p>同日15时02分，TAO将查询到的用户数据保存在被攻击服务器&#x2F;var&#x2F;tmp&#x2F;.2e434fd8aeae73e1&#x2F;erf&#x2F;out&#x2F;f&#x2F;目录下，被打包回传至攻击跳板，随后窃密过程中上传的渗透工具、用户数据等攻击痕迹被专用工具快速清除。</p>
+<p>美国国家安全局“特定入侵行动办公室”（TAO）运用同样的手法，分别于北京时间20××年1月10日23时22分、1月29日8时41分、3月28日22时00分、6月6日23时58分，攻击控制另外1家中国基础设施业务服务器，非法多批次查询、导出、窃取多名身份敏感人员的用户信息。</p>
+<p>2、渗透控制全球电信基础设施</p>
+<p>据分析，美国国家安全局“特定入侵行动办公室”（TAO）以上述手法，利用相同的武器工具组合，“合法”控制了全球不少于80个国家的电信基础设施网络。技术团队与欧洲和东南亚国家的合作伙伴通力协作，成功提取并固定了上述武器工具样本，并成功完成了技术分析，拟适时对外公布，协助全球共同抵御和防范美国国家安全局NSA的网络渗透攻击。</p>
+<p><strong>三、TAO在攻击过程中暴露身份的相关情况</strong></p>
+<p>美国国家安全局“特定入侵行动办公室”（TAO）在网络攻击西北工业大学过程中，暴露出多项技术漏洞，多次出现操作失误，相关证据进一步证明对西北工业大学实施网络攻击窃密行动的幕后黑手即为美国国家安全局NSA。兹摘要举例如下：</p>
+<p>（一）攻击时间完全吻合美国工作作息时间规律</p>
+<p>美国国家安全局“特定入侵行动办公室”（TAO）在使用tipoff激活指令和远程控制NOPEN木马时，必须通过手动操作，从这两类工具的攻击时间可以分析出网络攻击者的实际工作时间。</p>
+<p>首先，根据对相关网络攻击行为的大数据分析，对西北工业大学的网络攻击行动98%集中在北京时间21时至凌晨4时之间，该时段对应着美国东部时间9时至16时，属于美国国内的工作时间段。其次，美国时间的全部周六、周日中，均未发生对西北工业大学的网络攻击行动。第三，分析美国特有的节假日，发现美国的“阵亡将士纪念日”放假3天，美国“独立日”放假1天，在这四天中攻击方没有实施任何攻击窃密行动。第四，长时间对攻击行为密切跟踪发现，在历年圣诞节期间，所有网络攻击活动都处于静默状态。依据上述工作时间和节假日安排进行判断，针对西北工业大学的攻击窃密者都是按照美国国内工作日的时间安排进行活动的，肆无忌惮，毫不掩饰。</p>
+<p>（二）语言行为习惯与美国密切关联</p>
+<p>技术团队在对网络攻击者长时间追踪和反渗透过程中（略）发现，攻击者具有以下语言特征：一是攻击者有使用美式英语的习惯；二是与攻击者相关联的上网设备均安装英文操作系统及各类英文版应用程序；三是攻击者使用美式键盘进行输入。</p>
+<p>（三）武器操作失误暴露工作路径</p>
+<p>20××年5月16日5时36分（北京时间），对西北工业大学实施网络攻击人员利用位于韩国的跳板机（IP:222.122.××.××），并使用NOPEN木马再次攻击西北工业大学。在对西北工业大学内网实施第三级渗透后试图入侵控制一台网络设备时，在运行上传PY脚本工具时出现人为失误，未修改指定参数。脚本执行后返回出错信息，信息中暴露出攻击者上网终端的工作目录和相应的文件名，从中可知木马控制端的系统环境为Linux系统，且相应目录名“&#x2F;etc&#x2F;autoutils”系TAO网络攻击武器工具目录的专用名称（autoutils）。</p>
+<p>出错信息如下：</p>
+<blockquote>
+<p>Quantifier follows nothing in regex; marked by &lt;– HERE in m&#x2F;* &lt;– HERE .log&#x2F; at ..&#x2F;etc&#x2F;autoutils line 4569</p>
+</blockquote>
+<p>（四）大量武器与遭曝光的NSA武器基因高度同源</p>
+<p>此次被捕获的、对西北工业大学攻击窃密中所用的41款不同的网络攻击武器工具中，有16款工具与“影子经纪人”曝光的TAO武器完全一致；有23款工具虽然与“影子经纪人”曝光的工具不完全相同，但其基因相似度高达97%，属于同一类武器，只是相关配置不相同；另有2款工具无法与“影子经纪人”曝光工具进行对应，但这2款工具需要与TAO的其它网络攻击武器工具配合使用，因此这批武器工具明显具有同源性，都归属于TAO。</p>
+<p>（五）部分网络攻击行为发生在“影子经纪人”曝光之前</p>
+<p>技术团队综合分析发现，在对中国目标实施的上万次网络攻击，特别是对西北工业大学发起的上千次网络攻击中，部分攻击过程中使用的武器攻击，在“影子经纪人”曝光NSA武器装备前便完成了木马植入。按照NSA的行为习惯，上述武器工具大概率由TAO雇员自己使用。</p>
+<p><strong>四、TAO网络攻击西北工业大学武器平台IP列表</strong></p>
+<p>技术分析与溯源调查中，技术团队发现了一批TAO在网络入侵西北工业大学的行动中托管所用相关武器装备的服务器IP地址，举例如下：</p>
+<p><img src="/image/2026/07/%E8%A5%BF%E5%8C%97%E5%B7%A5%E4%B8%9A%E5%A4%A7%E5%AD%A6%E9%81%AD%E7%BE%8E%E5%9B%BDNSA%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E8%B0%83%E6%9F%A5%E6%8A%A5%E5%91%8A%EF%BC%88%E4%B9%8B%E4%BA%8C%EF%BC%89/biao1.webp" alt="表1"></p>
+<p><strong>五、TAO网络攻击西北工业大学所用跳板IP列表</strong></p>
+<p><img src="/image/2026/07/%E8%A5%BF%E5%8C%97%E5%B7%A5%E4%B8%9A%E5%A4%A7%E5%AD%A6%E9%81%AD%E7%BE%8E%E5%9B%BDNSA%E7%BD%91%E7%BB%9C%E6%94%BB%E5%87%BB%E4%BA%8B%E4%BB%B6%E8%B0%83%E6%9F%A5%E6%8A%A5%E5%91%8A%EF%BC%88%E4%B9%8B%E4%BA%8C%EF%BC%89/biao2.webp" alt="表2"></p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+    
+        <a href="/archives/6e0e0b677043.html" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Más viejo</strong>
+            <div class="article-nav-title">西北工业大学遭美国NSA网络攻击事件调查报告（之一）</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            
+                迷雾调查小组 &copy; 2026
+            
+        </div>
+    </div>
+</footer>
+
+        
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>
