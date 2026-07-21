@@ -178,3 +178,7 @@ mask:hover {
   background-color: transparent;
   color: inherit;
 }
+img {
+    max-height: 650px;
+    max-width: 650px;
+}
