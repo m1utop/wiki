@@ -168,17 +168,23 @@
 }
 
 mask {
-  color: #565a5f;
-  background-color: #565a5f;
-  display: inline-block;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  cursor: pointer;
+    color: #565a5f;
+    background-color: #565a5f;
+    display: inline-block;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
 }
 mask:hover {
-  background-color: transparent;
-  color: inherit;
+    background-color: transparent;
+    color: inherit;
 }
 img {
-    max-height: 650px;
-    max-width: 650px;
+    max-height: 500px;
+    max-width: 500px;
+    border: 5px solid #dddddd !important;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+img:hover {
+    border: 5px solid #cccccc !important;
 }
